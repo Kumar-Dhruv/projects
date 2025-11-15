@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://bip7oto81tudp"]
+
+[ext_resource type="PackedScene" uid="uid://x8olpx362ja5" path="res://Agent.tscn" id="1_u52ul"]
+[ext_resource type="Script" uid="uid://ca340ltmth6ni" path="res://scripts/blackboard.gd" id="2_vonw3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5xgho"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_u52ul"]
+sky_material = SubResource("ProceduralSkyMaterial_5xgho")
+
+[sub_resource type="Environment" id="Environment_vonw3"]
+background_mode = 2
+sky = SubResource("Sky_u52ul")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xgho"]
+albedo_color = Color(0.00533333, 0, 0.04, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u52ul"]
+material = SubResource("StandardMaterial3D_5xgho")
+size = Vector3(30, 0.2, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vonw3"]
+size = Vector3(30, 0.2, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u52ul"]
+albedo_color = Color(0.331643, 0.574576, 0.844458, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vonw3"]
+albedo_color = Color(0.065031, 0.119397, 0.329044, 1)
+
+[node name="Level" type="Node3D"]
+script = ExtResource("2_vonw3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vonw3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_u52ul")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_vonw3")
+
+[node name="Red" parent="." groups=["Red"] instance=ExtResource("1_u52ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.30923, 0.127224, 0)
+
+[node name="Blue" parent="." groups=["Blue"] instance=ExtResource("1_u52ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33853, 0.127, 0)
+is_red = false
+
+[node name="Skeleton3D" parent="Blue/Skin" index="0"]
+bones/0/position = Vector3(0.00114905, 0.947608, -0.02334)
+bones/0/rotation = Quaternion(0.0407952, -0.262238, 0.0167832, 0.963995)
+bones/1/rotation = Quaternion(0.107076, -0.0196697, 0.0180301, 0.993893)
+bones/2/rotation = Quaternion(0.0473688, -0.00456885, -0.00265632, 0.998864)
+bones/3/rotation = Quaternion(0.014324, 0.00863915, 0.0139139, 0.999763)
+bones/4/rotation = Quaternion(-0.160934, 0.0280894, -0.0581713, 0.984849)
+bones/5/rotation = Quaternion(-0.0205918, 0.192918, 0.0139924, 0.980899)
+bones/7/rotation = Quaternion(-0.519207, 0.503581, -0.25587, -0.641375)
+bones/8/rotation = Quaternion(0.553181, 0.110169, -0.431614, 0.703962)
+bones/9/rotation = Quaternion(-0.0601303, 0.0489254, -0.433336, 0.897892)
+bones/10/rotation = Quaternion(0.121736, 0.216435, -0.111855, 0.962198)
+bones/31/rotation = Quaternion(0.5753, 0.52506, -0.400741, 0.482439)
+bones/32/rotation = Quaternion(0.584879, -0.0575227, 0.281902, 0.758379)
+bones/33/rotation = Quaternion(0.0757683, 0.0393856, 0.526848, 0.845659)
+bones/34/rotation = Quaternion(-0.0916135, -0.340539, -0.0861646, 0.931781)
+bones/55/rotation = Quaternion(-0.0506484, 0.274856, 0.960129, -0.00641797)
+bones/56/rotation = Quaternion(-0.465299, 0.0108921, 0.00866084, 0.885044)
+bones/57/rotation = Quaternion(0.616401, -0.0198565, -0.0399856, 0.786166)
+bones/58/rotation = Quaternion(0.3586, 0.000386668, 0.0163611, 0.933348)
+bones/60/rotation = Quaternion(0.040854, 0.40221, 0.908355, -0.107005)
+bones/61/rotation = Quaternion(-0.52424, -0.0492337, 0.029189, 0.849645)
+bones/62/rotation = Quaternion(0.525804, -5.1501e-06, -0.00203266, 0.850604)
+bones/63/rotation = Quaternion(0.354186, 0.00937783, -0.00684626, 0.935103)
+
+[node name="Beta_Surface" parent="Blue/Skin/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_u52ul")
+
+[node name="Beta_Joints" parent="Blue/Skin/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_vonw3")
+
+[node name="BoneAttachment3D" parent="Blue/Skin/Skeleton3D" index="2"]
+transform = Transform3D(-0.143183, 0.415711, 0.898156, 0.943951, -0.215354, 0.25016, 0.297416, 0.883633, -0.361575, -0.201119, 0.951557, 0.35607)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.57412, 0.818771, 0, -0.818771, 0.57412, 0, 4.94248, 5.34434)
+
+[editable path="Blue"]
+[editable path="Blue/Skin"]

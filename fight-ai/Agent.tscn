@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://x8olpx362ja5"]
+
+[ext_resource type="Script" uid="uid://br1exqag04maa" path="res://scripts/agent.gd" id="1_h5bnm"]
+[ext_resource type="PackedScene" uid="uid://6hrx0r65baik" path="res://skin.tscn" id="1_rkxqq"]
+[ext_resource type="PackedScene" uid="uid://cs6ob8cimgcjx" path="res://tree.tscn" id="3_c810y"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rmf73"]
+radius = 0.225427
+height = 1.80312
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h5bnm"]
+size = Vector3(1, 1.545, 1)
+
+[node name="Agent" type="CharacterBody3D"]
+script = ExtResource("1_h5bnm")
+
+[node name="Skin" parent="." instance=ExtResource("1_rkxqq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90665, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_rmf73")
+
+[node name="Temp" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="StallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FallbackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.891383, 0.0936725)
+shape = SubResource("BoxShape3D_h5bnm")
+
+[node name="TreeBuilder" parent="." instance=ExtResource("3_c810y")]
